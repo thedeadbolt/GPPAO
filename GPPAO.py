@@ -1,6 +1,24 @@
-# 13/08/2024 : Simple budgeting app made by thedeadbolt
-# update fragmentar noutros ficheiros (a fazer)
-# update2 - add mais budget (a fazer)
+# 24/08/2024: GPPAOv2
+# addded saving expenses into a json file
+
+import json
+
+def save_data(budget, expenses, filename="budget_data.json"):  # defining the save data into a json file function
+    data = {'budget': budget, "expenses": expenses}
+    with open(filename, "w") as file:  # write as file
+        json.dump(data, file)  # function within json that dumps it into the json file
+    print("Budget and expenses saved successfully!")
+
+def load_data(filename="budget_data.json"):  # defining loading the data of the saved json file
+    try:
+        with open(filename, "r") as file:
+            data = json.load(file)
+        print("Budget and expenses loaded successfully!")
+        return data["budget"], data["expenses"]
+    except FileNotFoundError:
+        print("No previous expense planning was found. Starting with a new budget.")
+        return None, []
+
 
 def add_expense(expenses, description, amount, expense_type, budget):
     expenses.append({"description": description, "amount": amount, "type": expense_type})
@@ -9,6 +27,7 @@ def add_expense(expenses, description, amount, expense_type, budget):
     if get_total_expenses(expenses) > budget:
         print("Warning: You have exceeded your budget!")
 
+
 def get_total_expenses(expenses, expense_type=None):
     total = 0
     for expense in expenses:
@@ -16,8 +35,10 @@ def get_total_expenses(expenses, expense_type=None):
             total += expense["amount"]
     return total
 
+
 def get_balance(budget, expenses):
     return budget - get_total_expenses(expenses)
+
 
 def show_budget_details(budget, expenses):
     print(f"Total budget: {budget}")
@@ -42,17 +63,20 @@ def show_budget_details(budget, expenses):
     if get_total_expenses(expenses) > budget:
         print("Warning: You have exceeded your budget!")
 
+
 def main():
-    print("Welcome to thedeadbolt's monthly budgeting app (TMBA)!")
-    initial_budget = float(input("Please insert your budget for this month: "))
-    budget = initial_budget
-    expenses = []
+    print("Welcome to the General Personal Planning and Allocation of Obligations App (GPPAO)!")
+    budget, expenses = load_data()  # load previous data if available
+
+    if budget is None:
+        initial_budget = float(input("Please insert your budget for this month: "))
+        budget = initial_budget
 
     while True:
         print("\nWhat would you like to do?")
         print("1. Add your expenses for this month")
         print("2. Show budget details")
-        print("3. Exit TMBA")
+        print("3. Save your monthly expenses and Exit GPPAO")
         choice = input("Enter your choice (1/2/3): ")
 
         if choice == "1":
@@ -70,16 +94,13 @@ def main():
             show_budget_details(budget, expenses)
 
         elif choice == "3":
-            print("Exiting TMBA, see you soon!")
+            save_data(budget, expenses)
+            print("Exiting GPPAO, see you soon!")
             break
 
         else:
             print("Invalid choice, please input a valid choice.")
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
-
