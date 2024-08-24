@@ -9,3 +9,9 @@ With future updates the goal for TMBA (aka GPPAO) is to be a full fledged tool y
 Short term updates : organizing code/ add more features/ improve user interface.
 
 Long term updates : add complex finance tools / graph visualization tools.
+
+# TEST:
+
+```bash
+$ git clone: https://github.com/thedeadbolt/TMBA.git
+```
