@@ -16,3 +16,9 @@ Long term updates : add complex finance tools / graph visualization tools.
 ```bash
 $ git clone: https://github.com/thedeadbolt/TMBA.git
 ```
+
+# RUN:
+
+```bash
+py GPPAO.py
+```
