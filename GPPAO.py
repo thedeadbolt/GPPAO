@@ -75,9 +75,10 @@ def main():
     while True:
         print("\nWhat would you like to do?")
         print("1. Add your expenses for this month")
-        print("2. Show budget details")
-        print("3. Save your monthly expenses and Exit GPPAO")
-        choice = input("Enter your choice (1/2/3): ")
+        print("2. Add more budget")
+        print("3. Show budget details")
+        print("4. Save your monthly expenses and Exit GPPAO")
+        choice = input("Enter your choice (1/2/3/4): ")
 
         if choice == "1":
             description = input("Enter your expense description: ")
@@ -91,9 +92,14 @@ def main():
             add_expense(expenses, description, amount, expense_type, budget)
 
         elif choice == "2":
-            show_budget_details(budget, expenses)
+            add = float(input("Enter the amount you would like to add to your budget: "))
+            budget += add
+            print(f"Added {add} to your budget. Your new budget is {budget}.")
 
         elif choice == "3":
+            show_budget_details(budget, expenses)
+
+        elif choice == "4":
             save_data(budget, expenses)
             print("Exiting GPPAO, see you soon!")
             break
